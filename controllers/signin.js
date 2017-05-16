@@ -32,28 +32,33 @@ module.exports = {
         });
     },
     'POST /signin': async (ctx, next) => {
-        var users = await User.findAll({
+        var u = await User.findAll({
             where: {
                 username: ctx.request.body.email
             }
         });
-        // console.log(JSON.stringify(users));
-        // // console.log(JSON.stringify(users.password));
+        // console.log(JSON.stringify(u));
+        // console.log(u);
+        // console.log(u[0].password);
         // console.log(ctx.request.body.password);
 
-        for (let u of users) {
-            if (u.password === ctx.request.body.password) {
-                console.log('signin ok!');
-                ctx.render('signin-ok.html', {
-                    title: 'Sign In OK',
-                    name: `Mr ${u.username}`
-                });
+        if (u[0].password === ctx.request.body.password) {
+            console.log('signin ok!');
+            // console.log(ctx.session);
+            if (ctx.session.view === undefined) { //统计访问次数
+                ctx.session.view = 0
             } else {
-                console.log('signin failed!');
-                ctx.render('signin-failed.html', {
-                    title: 'Sign In Failed'
-                });
+                ctx.session.view += 1
             }
+            ctx.render('signin-ok.html', {
+                title: 'Sign In OK',
+                name: `Mr ${u[0].username}`
+            });
+        } else {
+            console.log('signin failed!');
+            ctx.render('signin-failed.html', {
+                title: 'Sign In Failed'
+            });
         }
     }
 };

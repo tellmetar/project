@@ -1,11 +1,13 @@
 'use strict';
 
-const Koa           =   require('koa');
-const bodyParser    =   require('koa-bodyparser');
-const controller    =   require('./controller');
-const templating    =   require('./templating');
+const Koa = require('koa');
+const bodyParser = require('koa-bodyparser');
+const session = require("koa-session2");
+const Store = require("./store");
+const controller = require('./controller');
+const templating = require('./templating');
 
-const app          =   new Koa();
+const app = new Koa();
 const isProduction = process.env.NODE_ENV === 'production';
 
 // log request URL:
@@ -27,6 +29,13 @@ if (!isProduction) {
 
 // parse request body:
 app.use(bodyParser());
+
+//get/set session
+app.use(session({
+    key: "SESSIONID",   //default "koa:sess"
+    store: new Store(),
+    maxAge: 5000  //设置session超时时间
+}));
 
 // add nunjucks as view:
 app.use(templating('views', {
