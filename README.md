@@ -4,12 +4,11 @@
 
     功能实现：登录 注册
 
+## 软件
+`Mysql`, `Redis`, `Node.js >= v7.6.0` are needed.
 
 
-软件：`Mysql`, `Redis`, `Node.js >= v7.6.0` are needed.
-
-
-
+## Run
 $ create database test;  //你需要在MySQL里建个数据库test
 
 $ node init-db.js  //初始化table
