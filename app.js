@@ -27,15 +27,15 @@ if (!isProduction) {
     app.use(staticFiles('/static/', __dirname + '/static'));
 }
 
-// parse request body:
-app.use(bodyParser());
-
 //get/set session
 app.use(session({
     key: "SESSIONID",   //default "koa:sess"
     store: new Store(),
-    maxAge: 5000  //设置session超时时间
+    maxAge: 5 * 60 * 1000  //设置session超时时间
 }));
+
+// parse request body:
+app.use(bodyParser());
 
 // add nunjucks as view:
 app.use(templating('views', {

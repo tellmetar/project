@@ -1,29 +1,5 @@
 // sign in:
-
-const Sequelize = require('sequelize');
-const config = require('../config.js');
-
-var sequelize = new Sequelize(config.database, config.username, config.password, {
-    host: config.host,
-    dialect: 'mysql',
-    pool: {
-        max: 5,
-        min: 0,
-        idle: 30000
-    }
-});
-
-var User = sequelize.define('user', {
-    id: {
-        type: Sequelize.STRING(50),
-        primaryKey: true
-    },
-    username: Sequelize.STRING(100),
-    password: Sequelize.STRING(100),
-}, {
-        timestamps: false
-    });
-
+const User = require('../models/User');
 
 module.exports = {
     'GET /signin': async (ctx, next) => {
@@ -44,12 +20,12 @@ module.exports = {
 
         if (u[0].password === ctx.request.body.password) {
             console.log('signin ok!');
-            // console.log(ctx.session);
             if (ctx.session.view === undefined) { //统计访问次数
                 ctx.session.view = 0
             } else {
                 ctx.session.view += 1
             }
+            // console.log(ctx.session);
             ctx.render('signin-ok.html', {
                 title: 'Sign In OK',
                 name: `Mr ${u[0].username}`
