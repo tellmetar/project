@@ -9,8 +9,10 @@
 
 
 ## Run
-$ create database test;  //你需要在MySQL里建个数据库test
+ create database test;  //你需要在MySQL里建个数据库test
 
 $ node init-db.js  //初始化table
+
 $ npm install    //install some packages
+
 $ npm run start  //跑起来
