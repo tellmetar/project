@@ -21,12 +21,13 @@ module.exports = {
             });
             ctx.render('register-success.html', {
                 title: 'register-success',
-                name: `Mr ${ctx.request.body.email}`,
-                passw: `${ctx.request.body.password}`
+                name: ctx.request.body.email,
+                passw: ctx.request.body.password
             });
         } else {
             ctx.render('register-fail.html', {
                 title: 'register-fail',
+                name: ctx.request.body.email
             });
         }
 
