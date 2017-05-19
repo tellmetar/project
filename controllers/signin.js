@@ -1,5 +1,7 @@
 // sign in:
-const User = require('../models/User');
+const model = require('../model');
+
+let User = model.User;
 
 module.exports = {
     'GET /signin': async (ctx, next) => {

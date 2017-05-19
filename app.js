@@ -34,7 +34,8 @@ app.use(session({
     maxAge: 5 * 60 * 1000  //设置session超时时间
 }));
 
-// parse request body:
+// parse request body 解析原始request请求。
+// bodyparser必须在router之前被注册到app对象上
 app.use(bodyParser());
 
 // add nunjucks as view:
