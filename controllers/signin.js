@@ -18,6 +18,7 @@ module.exports = {
         // console.log(JSON.stringify(u));
         // console.log(u);
         // console.log(u[0].password);
+        // console.log(ctx.request.body);
         // console.log(ctx.request.body.password);
 
         if (u[0].password === ctx.request.body.password) {
